@@ -4,7 +4,7 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Travel TimeLine</title>
     <asp:PlaceHolder runat="server">     
           <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>  
@@ -36,35 +36,36 @@
     </asp:ScriptManager>
     <header>
         <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a runat="server" href="~/">your logo here</a>
-                </p>
-            </div>
+            <asp:Image ID="Image1" runat="server" ImageUrl="Images/banner.png" Height="150" />
             <div class="float-right">
-                <section id="login">
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul>
-                                <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a></li>
-                                <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <p>
-                                Hello, <a runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
-                                    <asp:LoginName runat="server" CssClass="username" /></a>!
-                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
-                            </p>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                </section>
                 <nav>
                     <ul id="menu">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About.aspx">About</a></li>
-                        <li><a runat="server" href="~/Contact.aspx">Contact</a></li>
+                        <li><a id="A2" runat="server" href="~/">Home</a></li>
+                        <li><a id="A3" runat="server" href="~/Travel.aspx">Travel</a></li>
+                        <li><a id="A4" runat="server" href="~/About.aspx">About</a></li>
                     </ul>
+                    <% if (Page.Session["autentificat"] != null && (bool)Page.Session["autentificat"] == true)
+                       { %>
+                        <h3>Welcome, <%= (String)Page.Session["username"] %></h3>
+                        <a runat="server" href="~/EditProfile.aspx"><b>Profile</b></a><br />
+                        <b>My itineraries:</b><br />
+                        <% System.Data.SqlClient.SqlConnection sqlCon = new System.Data.SqlClient.SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Travel-TimeLine-Database.mdf;Integrated Security=True");
+                           sqlCon.Open();
+                           System.Data.SqlClient.SqlCommand sqlCom = new System.Data.SqlClient.SqlCommand("select Itineraries.name, Itineraries.itinerary_id from Itinerarymembers join Itineraries on Itinerarymembers.itinerary_id=Itineraries.itinerary_id where Itinerarymembers.user_name='" + (String)Page.Session["username"] + "'", sqlCon);
+                           System.Data.SqlClient.SqlDataReader reader = sqlCom.ExecuteReader();
+                           if (reader.HasRows)
+                           {
+                               while (reader.Read())
+                               {
+                                   Response.Write("<a runat='Server' href='Itinerary.aspx?id=" + reader.GetInt32(1) + "'><b>" + reader.GetString(0) + "</b></a><br>");
+                               }
+                           }
+                           reader.Close();
+                           sqlCon.Close();
+                       } %>
+                        <a runat="server" href="~/CreateItinerary.aspx"><b>Create Itinerary</b></a><br />
+                        <a runat="server" href="~/Messages.aspx"><b>Messages</b></a><br />
+                        <br /><a runat="server" href="~/LogOut.aspx"><b>Log out</b></a><br />
                 </nav>
             </div>
         </div>
@@ -78,7 +79,7 @@
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> Travel TimeLine B28</p>
             </div>
         </div>
     </footer>

@@ -202,8 +202,10 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Inregistrare.aspx" />
+    <Content Include="Itinerary.aspx" />
     <Content Include="Messages.aspx" />
     <Content Include="packages.config" />
+    <Content Include="WriteMessage.aspx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Profile.aspx" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -315,6 +317,13 @@
     <Compile Include="Inregistrare.aspx.designer.cs">
       <DependentUpon>Inregistrare.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Itinerary.aspx.cs">
+      <DependentUpon>Itinerary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Itinerary.aspx.designer.cs">
+      <DependentUpon>Itinerary.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Messages.aspx.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -336,6 +345,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="WriteMessage.aspx.cs">
+      <DependentUpon>WriteMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WriteMessage.aspx.designer.cs">
+      <DependentUpon>WriteMessage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
